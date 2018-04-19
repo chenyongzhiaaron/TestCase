@@ -13,6 +13,7 @@ class UpdateProductSuccess(unittest.TestCase):
     def setUp(self):
         self.urlAbsent = global_base.BaseUrl.url(self, "/products/abc/note")
         self.urlInvalid = global_base.BaseUrl.url(self, "/products/9999/note")
+        self.urlNoteNull = global_base.BaseUrl.url(self, "/products/738/note")
         self.headers = global_base.BaseUrl.headers(self)
 
     def tearDown(self):
@@ -34,7 +35,18 @@ class UpdateProductSuccess(unittest.TestCase):
         r = requests.patch(self.urlInvalid, headers=self.headers)
         self.result = r.json()
         self.assertEqual(self.result["status"], status)
+        self.assertEqual(self.result["message"], message)    \
+
+    @parameterized.expand([
+        ("note为空", " ", 422000, "illegal.request.data", ['required']),
+    ])
+    def test_update_draftProduct(self, casename, note, status, message,error):
+        self.payload = {"note": note}
+        r = requests.patch(self.urlNoteNull, headers=self.headers, data=self.payload)
+        self.result = r.json()
+        self.assertEqual(self.result["status"], status)
         self.assertEqual(self.result["message"], message)
+        self.assertEqual(self.result["error"]["note"], error)
 
 
 if __name__ == "__main__":

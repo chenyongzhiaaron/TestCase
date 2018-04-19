@@ -20,7 +20,8 @@ class UpdateProductSuccess(unittest.TestCase):
         print(self.result)
 
     @parameterized.expand([
-        ("id_draft", 1234567890, 0, "success", 774, "1234567890")
+        ("id_draft", 1234567890, 0, "success", 774, "1234567890"),
+        ("id_draft_min", 1, 0, "success", 774, "1"),
     ])
     def test_update_draftProduct_success(self, case, note, status, message, data_id, data_note):
         self.payload = {"note": note}
@@ -45,6 +46,18 @@ class UpdateProductSuccess(unittest.TestCase):
 
     @parameterized.expand([
         ("id_disable", "/\\\&?/\\/", 0, "success", 738, "/\\\&?/\\/")
+    ])
+    def test_update_draftProduct_success(self, case, note, status, message, data_id, data_note):
+        self.payload = {"note": note}
+        r = requests.patch(self.urlDisabel, headers=self.headers, data=self.payload)
+        self.result = r.json()
+        self.assertEqual(self.result["status"], status)
+        self.assertEqual(self.result["message"], message)
+        self.assertEqual(self.result["data"]["id"], data_id)
+        self.assertEqual(self.result["data"]["note"], data_note)
+
+    @parameterized.expand([
+        ("noet=null", "null", 0, "success", 738, "null")
     ])
     def test_update_draftProduct_success(self, case, note, status, message, data_id, data_note):
         self.payload = {"note": note}
