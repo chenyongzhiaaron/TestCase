@@ -11,10 +11,10 @@ sys.path.insert(0, parentdir)
 class UpdateProductSuccess(unittest.TestCase):
 
     def setUp(self):
-        self.urlAbsent = global_base.BaseUrl.url(self, "/products/abc/note")
-        self.urlInvalid = global_base.BaseUrl.url(self, "/products/9999/note")
-        self.urlNoteNull = global_base.BaseUrl.url(self, "/products/738/note")
-        self.headers = global_base.BaseUrl.headers(self)
+        self.urlAbsent = global_base.Base.url(self, "/products/abc/note")
+        self.urlInvalid = global_base.Base.url(self, "/products/9999/note")
+        self.urlNoteNull = global_base.Base.url(self, "/products/738/note")
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
         print(self.result)

@@ -11,12 +11,12 @@ sys.path.insert(0, parentdir)
 class ReleaseProductFault(unittest.TestCase):
 
     def setUp(self):
-        self.urlnull = global_base.BaseUrl.url(self, "/products/QWED/release")
-        self.urlInvalid = global_base.BaseUrl.url(self, "/products/99999999/release")
-        self.urlDraftPriceNull = global_base.BaseUrl.url(self, "/products/776/release")
-        self.urlDraftQuantityNull = global_base.BaseUrl.url(self, "/products/776/release")
-        self.urlRelease = global_base.BaseUrl.url(self, "/products/764/release")
-        self.headers = global_base.BaseUrl.headers(self)
+        self.urlnull = global_base.Base.url(self, "/products/QWED/release")
+        self.urlInvalid = global_base.Base.url(self, "/products/99999999/release")
+        self.urlDraftPriceNull = global_base.Base.url(self, "/products/776/release")
+        self.urlDraftQuantityNull = global_base.Base.url(self, "/products/776/release")
+        self.urlRelease = global_base.Base.url(self, "/products/764/release")
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
         print(self.result)

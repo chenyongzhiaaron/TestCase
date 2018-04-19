@@ -1,6 +1,6 @@
 
 
-class BaseUrl():
+class Base():
 
     def url(self, patch):
         baseurl = 'http://api.cosmos.crazybaby.com/api/pdm/v1'

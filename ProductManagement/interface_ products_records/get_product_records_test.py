@@ -14,8 +14,8 @@ class GetProductRecordsTest(unittest.TestCase):
     ''' 获取产品操作记录 '''
 
     def setUp(self):
-        self.base_url = global_base.BaseUrl.url(self, "/products/739/records")
-        self.headers = global_base.BaseUrl.headers(self)
+        self.base_url = global_base.Base.url(self, "/products/739/records")
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
         print(self.result)

@@ -15,7 +15,7 @@ class GetProductDetailSuccess(unittest.TestCase):
     def setUp(self,):
         # param = global_base.BaseUrl()
         # self.header = param.headers()
-        self.headers = global_base.BaseUrl.headers(self)
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
 
@@ -26,7 +26,7 @@ class GetProductDetailSuccess(unittest.TestCase):
     ])
     def test_get_product_detail_success(self, case_name, status, message, result_data_01, result_data_02, ):
 
-        param = global_base.BaseUrl()
+        param = global_base.Base()
         self.url = param.url("/products/739")
         r = requests.get(self.url, headers=self.headers)
         self.result = r.json()
@@ -40,7 +40,7 @@ class GetProductDetailSuccess(unittest.TestCase):
     ])
     def test_get_product_detail_error(self, casename, status, message):
 
-        self.url = global_base.BaseUrl.url(self,"/products/0")
+        self.url = global_base.Base.url(self,"/products/0")
         r = requests.get(self.url, headers=self.headers)
         self.result = r.json()
         self.assertEqual(self.result["status"], status)

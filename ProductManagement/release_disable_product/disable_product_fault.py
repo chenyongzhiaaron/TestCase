@@ -11,11 +11,11 @@ sys.path.insert(0, parentdir)
 class DisableProductFault(unittest.TestCase):
 
     def setUp(self):
-        self.urlInvalid = global_base.BaseUrl.url(self, "/products/abc/disable")
-        self.urlIdInvalid = global_base.BaseUrl.url(self, "/products/9000/disable")
-        self.urlIdDisabled = global_base.BaseUrl.url(self, "/products/764/disable")
-        self.urlIdDraft = global_base.BaseUrl.url(self, "/products/776/disable")
-        self.headers = global_base.BaseUrl.headers(self)
+        self.urlInvalid = global_base.Base.url(self, "/products/abc/disable")
+        self.urlIdInvalid = global_base.Base.url(self, "/products/9000/disable")
+        self.urlIdDisabled = global_base.Base.url(self, "/products/764/disable")
+        self.urlIdDraft = global_base.Base.url(self, "/products/776/disable")
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
         print(self.result)

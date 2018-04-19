@@ -11,9 +11,9 @@ sys.path.insert(0, parentdir)
 class ReleaseProductSuccess(unittest.TestCase):
 
     def setUp(self):
-        self.url = global_base.BaseUrl.url(self, "/products/id/release")
-        self.urlUnShelve = global_base.BaseUrl.url(self, "/products/739/release")
-        self.headers = global_base.BaseUrl.headers(self)
+        self.url = global_base.Base.url(self, "/products/id/release")
+        self.urlUnShelve = global_base.Base.url(self, "/products/739/release")
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
         print(self.result)

@@ -11,8 +11,8 @@ sys.path.insert(0, parentdir)
 class DisableProductSuccess(unittest.TestCase):
 
     def setUp(self):
-        self.urlRelease = global_base.BaseUrl.url(self, "/products/739/disable")
-        self.headers = global_base.BaseUrl.headers(self)
+        self.urlRelease = global_base.Base.url(self, "/products/739/disable")
+        self.headers = global_base.Base.headers(self)
 
     def tearDown(self):
         print(self.result)
