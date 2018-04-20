@@ -43,6 +43,102 @@ class DeletedProduct(unittest.TestCase):
         self.assertEqual(self.result["message"], message)
         self.assertEqual(self.result["error"]["packs"], error)
 
+    @parameterized.expand([
+        ("验证ID已上架，修改失败", 0.001, 0.001, 0.002, 0.001, 0.001, 0.001, 400000, "product.invalid"),
+    ])
+    def test_store_product_pack_release(self, case, units, net_weight, rough_weight, height, width, length, status,
+                                        message):
+        self.payload = {"packs[0][units]": units, "packs[0][net_weight]": net_weight,
+                        "packs[0][rough_weight]": rough_weight, "packs[0][height]": height, "packs[0][width]": width,
+                        "packs[0][length]": length}
+        r = requests.post(self.urlIdInvalid, headers=self.header, data=self.payload)
+        self.result = r.json()
+        self.assertEqual(self.result["status"], status)
+        self.assertEqual(self.result["message"], message)
+
+    @parameterized.expand([
+        ("验证ID已下架，修改成功，所有值最小", 0.001, 0.001, 0.002, 0.001, 0.001, 0.001, 0, "success", "0.0010000000", "0.0010000000",
+         "0.0020000000", '0.0010000000', '0.0010000000', '0.0010000000', '0.001', '0.001', '0.002', "0.001", "0.001",
+         "0.001"),
+    ])
+    def test_store_product_pack_disable(self, case, units, net_weight, rough_weight, height, width, length, status,
+                                        message, data_units, data_net_weight, data_rough_weight, data_height,
+                                        data_width, data_length, units_text, net_weight_text, rough_weight_text,
+                                        height_text, width_text, length_text):
+        self.payload = {"packs[0][units]": units, "packs[0][net_weight]": net_weight,
+                        "packs[0][rough_weight]": rough_weight, "packs[0][height]": height, "packs[0][width]": width,
+                        "packs[0][length]": length}
+        r = requests.post(self.urlIdDisable, headers=self.header, data=self.payload)
+        self.result = r.json()
+        self.assertEqual(self.result["status"], status)
+        self.assertEqual(self.result["message"], message)
+        self.assertEqual(self.result["data"][0]["units"], data_units)
+        self.assertEqual(self.result["data"][0]["net_weight"], data_net_weight)
+        self.assertEqual(self.result["data"][0]["rough_weight"], data_rough_weight)
+        self.assertEqual(self.result["data"][0]["height"], data_height)
+        self.assertEqual(self.result["data"][0]["width"], data_width)
+        self.assertEqual(self.result["data"][0]["length"], data_length)
+        self.assertEqual(self.result["data"][0]["units_text"], units_text)
+        self.assertEqual(self.result["data"][0]["net_weight_text"], net_weight_text)
+        self.assertEqual(self.result["data"][0]["rough_weight_text"], rough_weight_text)
+        self.assertEqual(self.result["data"][0]["height_text"], height_text)
+        self.assertEqual(self.result["data"][0]["width_text"], width_text)
+        self.assertEqual(self.result["data"][0]["length_text"], length_text)
+
+    @parameterized.expand([
+        ("max", 99999999, 99999998, 99999999, 99999999, 99999999, 99999999, 0, "success",
+         "99999999.0000000000", "99999998.0000000000",
+         "99999999.0000000000", "99999999.0000000000", "99999999.0000000000", "99999999.0000000000", "99,999,999",
+         "99,999,998", "99,999,999", "99,999,999", "99,999,999",
+         "99,999,999"),
+        ("max-1", 99999998, 99999997, 99999998, 99999998, 99999998, 99999998, 0, "success",
+         "99999998.0000000000", "99999997.0000000000",
+         "99999998.0000000000", "99999998.0000000000", "99999998.0000000000", "99999998.0000000000", "99,999,998",
+         "99,999,997", "99,999,998", "99,999,998", "99,999,998",
+         "99,999,998"),
+    ])
+    def test_store_product_pack_draft(self, case, units, net_weight, rough_weight, height, width, length, status,
+                                      message, data_units, data_net_weight, data_rough_weight, data_height,
+                                      data_width, data_length, units_text, net_weight_text, rough_weight_text,
+                                      height_text, width_text, length_text):
+        self.payload = {"packs[0][units]": units, "packs[0][net_weight]": net_weight,
+                        "packs[0][rough_weight]": rough_weight, "packs[0][height]": height, "packs[0][width]": width,
+                        "packs[0][length]": length}
+        r = requests.post(self.urlIdDraft, headers=self.header, data=self.payload)
+        if units == 99999999:
+            self.result = r.json()
+            self.assertEqual(self.result["status"], status)
+            self.assertEqual(self.result["message"], message)
+            self.assertEqual(self.result["data"][0]["units"], data_units)
+            self.assertEqual(self.result["data"][0]["net_weight"], data_net_weight)
+            self.assertEqual(self.result["data"][0]["rough_weight"], data_rough_weight)
+            self.assertEqual(self.result["data"][0]["height"], data_height)
+            self.assertEqual(self.result["data"][0]["width"], data_width)
+            self.assertEqual(self.result["data"][0]["length"], data_length)
+            self.assertEqual(self.result["data"][0]["units_text"], units_text)
+            self.assertEqual(self.result["data"][0]["net_weight_text"], net_weight_text)
+            self.assertEqual(self.result["data"][0]["rough_weight_text"], rough_weight_text)
+            self.assertEqual(self.result["data"][0]["height_text"], height_text)
+            self.assertEqual(self.result["data"][0]["width_text"], width_text)
+            self.assertEqual(self.result["data"][0]["length_text"], length_text)
+        elif net_weight == 99999997:
+            self.result = r.json()
+            self.assertEqual(self.result["status"], status)
+            self.assertEqual(self.result["message"], message)
+            self.assertEqual(self.result["data"][1]["units"], data_units)
+            self.assertEqual(self.result["data"][1]["net_weight"], data_net_weight)
+            self.assertEqual(self.result["data"][1]["rough_weight"], data_rough_weight)
+            self.assertEqual(self.result["data"][1]["height"], data_height)
+            self.assertEqual(self.result["data"][1]["width"], data_width)
+            self.assertEqual(self.result["data"][1]["length"], data_length)
+            self.assertEqual(self.result["data"][1]["units_text"], units_text)
+            self.assertEqual(self.result["data"][1]["net_weight_text"], net_weight_text)
+            self.assertEqual(self.result["data"][1]["rough_weight_text"], rough_weight_text)
+            self.assertEqual(self.result["data"][1]["height_text"], height_text)
+            self.assertEqual(self.result["data"][1]["width_text"], width_text)
+            self.assertEqual(self.result["data"][1]["length_text"], length_text)
+
+
 
 if __name__ == "__main__":
     unittest.main()
