@@ -1,15 +1,17 @@
-import unittest
-import requests
-from ProductManagement import global_base
-from parameterized import parameterized
 import os
 import sys
+import unittest
+
+import requests
+from parameterized import parameterized
+
+from ProductManagement import global_base
+
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
 
 
 class ReleaseProductFault(unittest.TestCase):
-
     def setUp(self):
         self.urlnull = global_base.Base.url(self, "/products/QWED/release")
         self.urlInvalid = global_base.Base.url(self, "/products/99999999/release")

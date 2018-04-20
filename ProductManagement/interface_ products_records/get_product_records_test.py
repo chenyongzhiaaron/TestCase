@@ -3,6 +3,7 @@ import requests
 import os
 import sys
 from ProductManagement import global_base
+
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
 from db_fixture import test_data
@@ -10,7 +11,6 @@ from parameterized import parameterized
 
 
 class GetProductRecordsTest(unittest.TestCase):
-
     ''' 获取产品操作记录 '''
 
     def setUp(self):
@@ -51,12 +51,14 @@ class GetProductRecordsTest(unittest.TestCase):
         self.assertEqual(self.result["data"]["current_page"], result_data01)
         self.assertEqual(self.result["data"]['data'][0]['user_name'], result_data02)
 
+
 @parameterized.expand([
     ('page_max', 99999999, 0, "success", 99999999, "[]", "null", 2),
     ('page_max-1', 99999998, 0, "success", 99999998, "[]", "null", 2),
 
 ])
-def test_get_product_records_success(self, case_name, page, status, message, result_data01, result_data02, result_data03,
+def test_get_product_records_success(self, case_name, page, status, message, result_data01, result_data02,
+                                     result_data03,
                                      result_data04):
     params = {"page": page}
     r = requests.get(self.base_url, headers=self.headers, params=params)

@@ -1,15 +1,17 @@
-import unittest
-import requests
-from ProductManagement import global_base
-from parameterized import parameterized
 import os
 import sys
+import unittest
+
+import requests
+from parameterized import parameterized
+
+from ProductManagement import global_base
+
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
 
 
 class DisableProductFault(unittest.TestCase):
-
     def setUp(self):
         self.urlInvalid = global_base.Base.url(self, "/products/abc/disable")
         self.urlIdInvalid = global_base.Base.url(self, "/products/9000/disable")

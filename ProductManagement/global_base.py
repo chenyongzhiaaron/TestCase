@@ -1,14 +1,10 @@
-
-
 class Base():
-
     def url(self, patch):
         baseurl = 'http://api.cosmos.crazybaby.com/api/pdm/v1'
         self.url = baseurl + patch
         return self.url
 
     def headers(self):
-
         self.headers = {
             'accept': "application/json",
             'secret': "oFCPQTbo1t4KcMvys05wKLXhCTujhgvz",

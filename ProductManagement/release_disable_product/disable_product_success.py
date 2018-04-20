@@ -1,15 +1,17 @@
-import unittest
-import requests
-from ProductManagement import global_base
-from parameterized import parameterized
 import os
 import sys
+import unittest
+
+import requests
+from parameterized import parameterized
+
+from ProductManagement import global_base
+
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
 
 
 class DisableProductSuccess(unittest.TestCase):
-
     def setUp(self):
         self.urlRelease = global_base.Base.url(self, "/products/739/disable")
         self.headers = global_base.Base.headers(self)
@@ -28,6 +30,7 @@ class DisableProductSuccess(unittest.TestCase):
         self.assertEqual(self.result["data"]["id"], data_id)
         self.assertEqual(self.result["data"]["status"], data_status)
         self.assertEqual(self.result["data"]["status_text"], data_status_text)
+
 
 if __name__ == "__main":
     unittest.main()

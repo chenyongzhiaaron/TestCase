@@ -4,12 +4,12 @@ from ProductManagement import global_base
 from parameterized import parameterized
 import os
 import sys
+
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
 
 
 class UpdateProductSuccess(unittest.TestCase):
-
     def setUp(self):
         self.urlDraft = global_base.Base.url(self, "/products/774/note")
         self.urlReleased = global_base.Base.url(self, "/products/765/note")
@@ -67,6 +67,7 @@ class UpdateProductSuccess(unittest.TestCase):
         self.assertEqual(self.result["message"], message)
         self.assertEqual(self.result["data"]["id"], data_id)
         self.assertEqual(self.result["data"]["note"], data_note)
+
 
 if __name__ == "__main__":
     unittest.main()
