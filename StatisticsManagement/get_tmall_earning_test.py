@@ -20,13 +20,13 @@ class GetTmallEarningDate(unittest.TestCase):
         print(self.result)
 
     @parameterized.expand([
-        ("输入正确的日期获取数据成功", "2018-04-01", "2018-04-01", 0, "success", "2018-04-01", "41965.0000000000", "1794.0000000000",
-         "2914.1400000000", "40171.0000000000", "0.0725433770", "7.25%"),
+        ("天", "2018-04-01", "2018-04-01", 1000, 0, "success", "2018-04-01", 41965, 1794,
+         2914.14, 40171, 0.0725433770),
     ])
-    def test_get_tmall_earning_date(self, case, date_start, data_end, status, message, data_data, paid_amount,
+    def test_get_tmall_earning_date(self, case, date_start, data_end, cycle, status, message, data_data, paid_amount,
                                     refunded_amount,
-                                    ad_rate, earning, acost, acos):
-        payload = {"date_start": date_start, "date_end": data_end}
+                                    ad_rate, earning, acost):
+        payload = {"date_start": date_start, "date_end": data_end, "cycle": cycle}
         r = requests.get(self.url, headers=self.header, params=payload)
         self.result = r.json()
         self.assertEqual(self.result["status"], status)
@@ -37,7 +37,6 @@ class GetTmallEarningDate(unittest.TestCase):
         self.assertEqual(self.result["data"][0]["ad_rate"], ad_rate)
         self.assertEqual(self.result["data"][0]["earning"], earning)
         self.assertEqual(self.result["data"][0]["acost"], acost)
-        self.assertEqual(self.result["data"][0]["acos"], acos)
 
 
 if __name__ == "__main__":

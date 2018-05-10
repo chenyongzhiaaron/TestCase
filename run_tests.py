@@ -8,7 +8,7 @@ sys.path.append('./ProductManagement')
 sys.path.append('./db_fixture')
 
 # 指定测试用例为当前文件夹下的 interface 目录
-test_dir = './ProductManagement/'
+test_dir = './'
 discover = unittest.defaultTestLoader.discover(test_dir, pattern='*_test.py')
 
 if __name__ == "__main__":
