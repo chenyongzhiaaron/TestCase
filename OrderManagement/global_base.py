@@ -1,6 +1,6 @@
 class Base():
     def url(self, patch):
-        baseurl = 'http://api.cosmos.crazybaby.com/api/smm/v1'
+        baseurl = 'http://api.cosmos.crazybaby.com/api/omm/v1'
         self.url = baseurl + patch
         return self.url
 

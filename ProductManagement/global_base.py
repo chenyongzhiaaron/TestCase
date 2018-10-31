@@ -8,10 +8,6 @@ class Base():
         self.headers = {
             'accept': "application/json",
             'secret': "oFCPQTbo1t4KcMvys05wKLXhCTujhgvz",
-            'authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1N"
-                             "iJ9.eyJzdWIiOjk3LCJpc3MiOiJodHRwOi8vYXBpLmNvc21vcy5jcm"
-                             "F6eWJhYnkuY29tL2FwaS92MS9hY2Nlc3MvdG9rZW4iLCJpYXQiOjE1MjM1MDM4NjAsImV4cCI6MTUyN"
-                             "jA5NTg2MCwibmJmIjoxNTIzNTAzODYwLCJqdGkiOiJ6RXNZODZHbjhQMTdDMmo1"
-                             "In0.QhSfvDHJ2im_jj09tQQdq8THXXOFnaaN5X_gZIRhkIA"
+            'authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk3LCJpc3MiOiJodHRwOi8vYXBpLmNvc21vcy5jcmF6eWJhYnkuY29tL2FwaS92MS9hY2Nlc3MvdG9rZW4iLCJpYXQiOjE1MjU4NTYxNzEsImV4cCI6MTUyODQ0ODE3MSwibmJmIjoxNTI1ODU2MTcxLCJqdGkiOiJBZmwxT1hpN1NnZXcxVkFsIn0.AW5L0hloq9tsYzJhigdbtX7-IpKGGsXFQW4hoqU3AJg"
         }
         return self.headers
